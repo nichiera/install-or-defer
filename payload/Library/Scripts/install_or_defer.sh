@@ -11,10 +11,10 @@
 #                   specified amount of time, the update will be forced. If
 #                   updates requiring a restart were found in the update check,
 #                   restarts automatically.
-#         Authors:  Elliot Jordan and Mario Panighetti
+#         Authors:  Elliot Jordan and Mario Panighetti changes by Chase Garcia
 #         Created:  2017-03-09
-#   Last Modified:  2019-09-23
-#         Version:  2.3.2
+#   Last Modified:  2019-10-31
+#         Version:  2.3.3
 #
 ###
 
@@ -23,16 +23,16 @@
 
 # Path to a plist file that is used to store settings locally. Omit ".plist"
 # extension.
-PLIST="/Library/Preferences/com.elliotjordan.install_or_defer"
+PLIST="/Library/Preferences/com.parsons.install_or_defer"
 
 # (Optional) Path to a logo that will be used in messaging. Recommend 512px,
 # PNG format. If no logo is provided, the Software Update icon will be used.
-LOGO=""
+LOGO="/Library/Parsons/Assets/parsons_icon.png"
 
 # The identifier of the LaunchDaemon that is used to call this script, which
 # should match the file in the payload/Library/LaunchDaemons folder. Omit
 # ".plist" extension.
-BUNDLE_ID="com.elliotjordan.install_or_defer"
+BUNDLE_ID="com.parsons.install_or_defer"
 
 
 ################################## MESSAGING ##################################
@@ -51,14 +51,14 @@ BUNDLE_ID="com.elliotjordan.install_or_defer"
 
 # The message users will receive when updates are available, shown above the
 # "Run Updates" and "Defer" buttons.
-MSG_ACT_OR_DEFER_HEADING="Critical updates are available"
+MSG_ACT_OR_DEFER_HEADING="Critical OS updates are available"
 MSG_ACT_OR_DEFER="Apple has released critical security updates, and your IT department would like you to install them as soon as possible. Please save your work, quit all applications, and click Run Updates.
 
 {{If now is not a good time, you may defer this message until later. }}Updates will install automatically after %DEFER_HOURS% hours<<, forcing your Mac to restart in the process>>. Note: This may result in losing unsaved work.
 
 If you'd like to manually install the updates yourself, open %UPDATE_MECHANISM% and apply all system and security updates<<, then restart when prompted>>.
 
-If you have any questions, please call or email the IT help desk."
+If you have any questions, please call or email the Parsons Service Desk."
 
 # The message users will receive after the deferral deadline has been reached.
 MSG_ACT_HEADING="Please run updates now"
@@ -72,18 +72,18 @@ MSG_UPDATING="Running system updates in the background.<< Your Mac will restart 
 #################################### TIMING ###################################
 
 # Number of seconds between the first script run and the updates being forced.
-MAX_DEFERRAL_TIME=$(( 60 * 60 * 24 * 3 )) # (259200 = 3 days)
+MAX_DEFERRAL_TIME=$(( 60 * 60 * 24 * 5 )) # (default 259200 = 3 days, changed to 5 days)
 
 # When the user clicks "Defer" the next prompt is delayed by this much time.
 EACH_DEFER=$(( 60 * 60 * 4 )) # (14400 = 4 hours)
 
 # The number of seconds to wait between displaying the "run updates" message
 # and applying updates, then attempting a soft restart.
-UPDATE_DELAY=$(( 60 * 10 )) # (600 = 10 minutes)
+UPDATE_DELAY=$(( 60 * 60 )) # (default 600 = 10 minutes, changed to 60 minutes)
 
 # The number of seconds to wait between attempting a soft restart and forcing a
 # restart.
-HARD_RESTART_DELAY=$(( 60 * 5 )) # (300 = 5 minutes)
+HARD_RESTART_DELAY=$(( 60 * 5 )) # (default 300 = 5 minutes)
 
 
 ################################## FUNCTIONS ##################################
